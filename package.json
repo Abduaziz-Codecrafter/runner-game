@@ -1,0 +1,17 @@
+{
+  "name": "runner-game",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.1"
+  },
+  "dependencies": {
+    "kaplay": "^3001.1.0-beta.0"
+  }
+}
