@@ -1,5 +1,6 @@
 import k from "../kaplayCtx";
 import { makeSonic } from "../entities/sonic";
+import { makeMotobug } from "../entities/motobug";
 
 export default function game() {
     k.setGravity(3100);
@@ -28,6 +29,26 @@ export default function game() {
         gameSpeed += 50;
     });
 
+    const spawnMotobug = () => {
+      const motobug = makeMotobug(k.vec2(1950, 773));
+      motobug.onUpdate(() => {
+        if (gameSpeed < 3000 ) {
+          motobug.move(-(gameSpeed + 300), 0);
+          return;
+        }
+
+        motobug.move(-gameSpeed, 0);
+      });
+
+      motobug.onExitScreen(() => {
+        if (motobug.pos.x < 0) k.destroy(motobug);
+      });
+
+
+      const waitTime = k.rand(0.5, 2.5)
+      k.wait(waitTime, spawnMotobug)
+    };
+    spawnMotobug();
     k.add([
         k.rect(1920, 300),
         k.opacity(0),
