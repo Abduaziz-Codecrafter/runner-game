@@ -21,6 +21,14 @@ export default function game() {
       k.add([k.sprite("platforms"), k.pos(platformWidth, 450), k.scale(4)]),
     ];
 
+    let score = 0;
+    let scoreMultiplier = 0;
+
+    const scoreText = k.add([
+      k.text("SCORE: 0", {font: "mania", size: 72}),
+      k.pos(20,20),
+    ]);
+
     const sonic = makeSonic(k.vec2(200, 745));
     sonic.setControls();
     sonic.setEvents();
@@ -31,6 +39,7 @@ export default function game() {
         k.destroy(enemy);
         sonic.play("jump");
         sonic.jump();
+        //add multiplier logic here.
         return;
       }
 
@@ -38,6 +47,14 @@ export default function game() {
       //TODO
       k.go("gameover");
     });
+    
+    sonic.onCollide("ring", (ring) => {
+      k.play("ring", {volume: 0.1});
+      k.destroy(ring);
+      score++;
+      scoreText.text = `SCORE: ${score}`;
+    });
+
 
     let gameSpeed = 300;
     k.loop(1, () => {
